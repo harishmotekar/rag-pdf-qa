@@ -22,11 +22,13 @@ def load_models():
     )
 
     llm_pipeline = pipeline(
-    task="text-generation",
+    task="text2text-generation",
     model="google/flan-t5-base",
     max_new_tokens=256,
-    temperature=0
+    temperature=0,
+    do_sample=False
 )
+
 
 
     llm = HuggingFacePipeline(pipeline=llm_pipeline)
@@ -55,8 +57,8 @@ if st.button("Process Document"):
         st.stop()
 
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=500,
-        chunk_overlap=100
+        chunk_size=400,
+        chunk_overlap=50
     )
 
     chunks = splitter.split_text(text)
@@ -73,12 +75,13 @@ if "vs" in st.session_state:
     if query:
         qa = RetrievalQA.from_chain_type(
             llm=llm,
-            chain_type="stuff",
+            chain_type="map_reduce",
             retriever=st.session_state.vs.as_retriever()
         )
 
         answer = qa.run(query)
         st.subheader("Answer")
         st.write(answer)
+
 
 
