@@ -1,8 +1,10 @@
-streamlit
-langchain
-langchain-community
+streamlit>=1.30
+langchain==0.1.20
+langchain-community==0.0.38
 sentence-transformers
 transformers
 faiss-cpu
 pypdf
 torch
+
+
