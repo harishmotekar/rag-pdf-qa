@@ -22,11 +22,12 @@ def load_models():
     )
 
     llm_pipeline = pipeline(
-        "text2text-generation",
-        model="google/flan-t5-base",
-        max_length=512,
-        temperature=0
-    )
+    task="text-generation",
+    model="google/flan-t5-base",
+    max_new_tokens=256,
+    temperature=0
+)
+
 
     llm = HuggingFacePipeline(pipeline=llm_pipeline)
     return embeddings, llm
@@ -79,4 +80,5 @@ if "vs" in st.session_state:
         answer = qa.run(query)
         st.subheader("Answer")
         st.write(answer)
+
 
