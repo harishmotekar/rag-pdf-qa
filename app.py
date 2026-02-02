@@ -76,12 +76,15 @@ if "vs" in st.session_state:
         qa = RetrievalQA.from_chain_type(
             llm=llm,
             chain_type="map_reduce",
-            retriever=st.session_state.vs.as_retriever()
+            retriever = st.session_state.vs.as_retriever(
+                        search_kwargs={"k": 3})
+
         )
 
-        answer = qa.run(query)
+        answer = qa.invoke({"query": query})["result"]
         st.subheader("Answer")
         st.write(answer)
+
 
 
 
