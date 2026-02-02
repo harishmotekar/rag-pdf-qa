@@ -1,11 +1,14 @@
 import streamlit as st
 from pypdf import PdfReader
+
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.llms import HuggingFacePipeline
 from langchain.chains import RetrievalQA
+
 from transformers import pipeline
+
 
 # ---------------- UI ----------------
 st.set_page_config(page_title="PDF Q&A using RAG", layout="wide")
@@ -76,3 +79,4 @@ if "vs" in st.session_state:
         answer = qa.run(query)
         st.subheader("Answer")
         st.write(answer)
+
